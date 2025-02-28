@@ -1,0 +1,48 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Urbanist", sans-serif;
+    color: white;
+    text-shadow: 0px 0px 20px #aaaaaa;
+}
+
+body {
+    background: no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+main {
+    padding: 1.5em;
+    height: 100vh;
+    display: grid;
+    grid-template: repeat(3, 1fr)/repeat(3, 1fr);
+}
+
+.crypto {
+    grid-column: 1/3;
+}
+
+.weather {
+    grid-column: 3/3;
+    justify-self: end;
+}
+
+
+.time {
+    grid-column: 2/3;
+    justify-self: center;
+    align-self: center;
+}
+
+.img-author {
+    grid-column: 1/3;
+    align-self: end;
+}
