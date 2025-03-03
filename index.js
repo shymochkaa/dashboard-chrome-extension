@@ -2,42 +2,61 @@ const imgAuthor = document.getElementById('img-author')
 
 
 async function getPictureFromApi() {
+
+    try {
+        const responce = await fetch('https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature')
+        const data = await responce.json()
+        const imgUrl =  data.urls.full
+        document.body.style.backgroundImage = `url('${imgUrl}')`
+        const authorName = data.user.name
+        imgAuthor.textContent = `By: ${authorName}`
+    } catch (error) {
+        console.error('Error:', error);
+    }
 	
-	const responce = await fetch('https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature')
-	const data = await responce.json()
-	const imgUrl =  data.urls.full
-    document.body.style.backgroundImage = `url('${imgUrl}')`
-    const authorName = data.user.name
-    imgAuthor.textContent = `By: ${authorName}`
+	
 }
 
 
 
 async function getCryptoData() {
-    const responce = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
-    const data = await responce.json()
 
-    const cryptoContainer = document.getElementById('crypto-container')
-
-    cryptoContainer.innerHTML = ` 
-        <div id="crypto" class="crypto">
-            <img src="${data.image.small}" alt="${data.name} logo">
-            <p id="crypto-name" class="crypto-name">${data.name}</p>
-        </div>
-        <div class="crypto-info">
-            <p>🎯: $${data.market_data.current_price.usd}</p>
-            <p>👆: $${data.market_data.high_24h.usd}</p>
-            <p>👇: $${data.market_data.low_24h.usd}</p>
-        </div>
-    `
+    try {
+        const responce = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
+        const data = await responce.json()
+    
+        const cryptoContainer = document.getElementById('crypto-container')
+    
+        cryptoContainer.innerHTML = ` 
+            <div id="crypto" class="crypto">
+                <img src="${data.image.small}" alt="${data.name} logo">
+                <p id="crypto-name" class="crypto-name">${data.name}</p>
+            </div>
+            <div class="crypto-info">
+                <p>🎯: $${data.market_data.current_price.usd}</p>
+                <p>👆: $${data.market_data.high_24h.usd}</p>
+                <p>👇: $${data.market_data.low_24h.usd}</p>
+            </div>
+        `
+    } catch (error) {
+        console.error('Error:', error);
+    }
+    
 }
-//  async function setBAckgroundImg(){
-// 	const imgUrl = await getPictureFromApi()
-// 	document.body.style.backgroundImage = `url('${imgUrl}')`
-//  }
- 
-//  setBAckgroundImg()
 
 getPictureFromApi()
 
 getCryptoData()
+
+
+const timeEl = document.getElementById('time')
+
+const updateTime = () => {
+    const date = new Date()
+    let dateFormatted = date.toLocaleTimeString("en-us", {timeStyle: "medium"})
+    timeEl.textContent = dateFormatted
+}
+
+
+
+setInterval(updateTime, 1000);

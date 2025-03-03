@@ -40,6 +40,7 @@ main {
     grid-column: 2/3;
     justify-self: center;
     align-self: center;
+    font-size: 4rem;
 }
 
 .img-author {
