@@ -12,6 +12,25 @@ async function getPictureFromApi() {
 }
 
 
+
+async function getCryptoData() {
+    const responce = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
+    const data = await responce.json()
+
+    const cryptoContainer = document.getElementById('crypto-container')
+
+    cryptoContainer.innerHTML = ` 
+        <div id="crypto" class="crypto">
+            <img src="${data.image.small}" alt="${data.name} logo">
+            <p id="crypto-name" class="crypto-name">${data.name}</p>
+        </div>
+        <div class="crypto-info">
+            <p>🎯: $${data.market_data.current_price.usd}</p>
+            <p>👆: $${data.market_data.high_24h.usd}</p>
+            <p>👇: $${data.market_data.low_24h.usd}</p>
+        </div>
+    `
+}
 //  async function setBAckgroundImg(){
 // 	const imgUrl = await getPictureFromApi()
 // 	document.body.style.backgroundImage = `url('${imgUrl}')`
@@ -20,3 +39,5 @@ async function getPictureFromApi() {
 //  setBAckgroundImg()
 
 getPictureFromApi()
+
+getCryptoData()

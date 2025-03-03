@@ -26,7 +26,7 @@ main {
     grid-template: repeat(3, 1fr)/repeat(3, 1fr);
 }
 
-.crypto {
+.crypto-container {
     grid-column: 1/3;
 }
 
@@ -45,4 +45,17 @@ main {
 .img-author {
     grid-column: 1/3;
     align-self: end;
+}
+
+.crypto {
+    display: flex;
+    gap: 0.5em;
+    font-weight: 700;
+}
+.crypto-info {
+    margin: 0.5em 1em;
+}
+
+.crypto-info > p {
+    margin: 0;
 }
