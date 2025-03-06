@@ -60,3 +60,18 @@ const updateTime = () => {
 
 
 setInterval(updateTime, 1000);
+
+
+//API KEY - cc3bab8927c57c719b8f3ada04bc9899
+if ("geolocation" in navigator) {
+    /* geolocation is available */
+    console.log('hi i exist')
+  } else {
+    /* geolocation IS NOT available */
+  }
+
+  navigator.geolocation.getCurrentPosition((position) => {
+
+   console.log(position);
+
+  });
