@@ -74,9 +74,8 @@ if ("geolocation" in navigator) {
 
 
 async function getCurrentWeather(latitude, longitude) {
-    console.log(latitude, longitude)
-
-    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=cc3bab8927c57c719b8f3ada04bc9899`)
+ 
+    const res = await fetch(`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=cc3bab8927c57c719b8f3ada04bc9899`)
     const data = await res.json()
 
     const weatherIconEL = document.getElementById('weather-icon')
