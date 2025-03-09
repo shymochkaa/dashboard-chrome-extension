@@ -6,15 +6,15 @@ async function getPictureFromApi() {
     try {
         const responce = await fetch('https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature')
         const data = await responce.json()
-        const imgUrl =  data.urls.full
+        const imgUrl = data.urls.full
         document.body.style.backgroundImage = `url('${imgUrl}')`
         const authorName = data.user.name
         imgAuthor.textContent = `By: ${authorName}`
     } catch (error) {
         console.error('Error:', error);
     }
-	
-	
+
+
 }
 
 
@@ -24,9 +24,9 @@ async function getCryptoData() {
     try {
         const responce = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
         const data = await responce.json()
-    
+
         const cryptoContainer = document.getElementById('crypto-container')
-    
+
         cryptoContainer.innerHTML = ` 
             <div id="crypto" class="crypto">
                 <img src="${data.image.small}" alt="${data.name} logo">
@@ -41,7 +41,7 @@ async function getCryptoData() {
     } catch (error) {
         console.error('Error:', error);
     }
-    
+
 }
 
 getPictureFromApi()
@@ -53,25 +53,42 @@ const timeEl = document.getElementById('time')
 
 const updateTime = () => {
     const date = new Date()
-    let dateFormatted = date.toLocaleTimeString("en-us", {timeStyle: "medium"})
+    let dateFormatted = date.toLocaleTimeString("en-us", { timeStyle: "medium" })
     timeEl.textContent = dateFormatted
 }
-
 
 
 setInterval(updateTime, 1000);
 
 
-//API KEY - cc3bab8927c57c719b8f3ada04bc9899
 if ("geolocation" in navigator) {
-    /* geolocation is available */
-    console.log('hi i exist')
-  } else {
-    /* geolocation IS NOT available */
-  }
+    navigator.geolocation.getCurrentPosition((position) => {
 
-  navigator.geolocation.getCurrentPosition((position) => {
+        getCurrentWeather(position.coords.latitude, position.coords.longitude)
 
-   console.log(position);
+    });
+} else {
 
-  });
+}
+
+
+
+async function getCurrentWeather(latitude, longitude) {
+    console.log(latitude, longitude)
+
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=cc3bab8927c57c719b8f3ada04bc9899`)
+    const data = await res.json()
+
+    const weatherIconEL = document.getElementById('weather-icon')
+    let weatherIcon = data.weather[0].icon
+    weatherIconEL.src = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`
+
+    const cityEl = document.getElementById('city')
+    let city = data.name
+    cityEl.textContent = city
+
+    const temperatureEl = document.getElementById('temperature')
+    let temp = Math.floor(data.main.temp)
+    temperatureEl.innerHTML = `${temp}&deg;`
+
+}
